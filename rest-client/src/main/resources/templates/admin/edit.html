@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+</head>
+<body>
+<form th:action="@{/{id}(id=${user.getId()})}" th:object="${user}" th:method="POST">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" th:field="*{username}" id="name" th:value="${user.username}" placeholder="Name">
+
+        <br/>
+
+        <label for="lastName">LastName</label>
+        <input type="text" th:field="*{lastName}" id="lastName" th:value="${user.lastName}" placeholder="Lastname">
+
+        <br/>
+
+        <label for="age">Age</label>
+        <input type="number" th:field="*{age}" id="age" th:value="${user.age}" placeholder="Age">
+
+        <br/>
+
+        <label for="password">Password</label>
+        <input type="text" th:field="*{password}" id="password" th:value="${user.password}" placeholder="Password">
+
+        <br/>
+
+        <p>Current role: <span th:text="${user.getStringRoles()}"></span></p>
+
+        <br/>
+
+        <label for="rol">Change role</label>
+        <select id="rol" th:field="${user.roles}" multiple>
+            <option th:each="initializeRoles:${roles}"
+                    th:value="${initializeRoles.name}"
+                    th:text="${initializeRoles.name}"
+            >
+        </select>
+        <br/>
+
+        <input type="submit" value="Update"/>
+
+    </div>
+</form>
+
+<br/>
+
+<form name='f' action='/logout' method='POST'>
+    <input name="logout" type="submit" value="Log out"/>
+    <input name="${_csrf.parameterName}" type="hidden"
+           value="${_csrf.token}"/>
+</form>
+</body>
+</html>
